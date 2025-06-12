@@ -22,6 +22,14 @@ app.add_middleware(
 df = pd.read_csv('video.csv')
 genre_matrix = np.load('genre_matrix.npy')
 
+def get_video_detail(video_id: int):
+    """비디오 상세 정보를 API에서 가져오는 함수"""
+    url = f"{os.environ.get('API_URL')}/videos/{video_id}"
+    response = requests.get(url)
+    response.raise_for_status()
+    data = response.json()
+    return data
+    
 def get_user_history_ids(user_id: int):
     url = f"{os.environ.get('API_URL')}/users/{user_id}"
     response = requests.get(url)
